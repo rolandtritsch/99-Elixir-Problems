@@ -7,11 +7,11 @@ defmodule NinetyNineProblemsTest do
   end
 
   test "p102_lastBut(list)" do
-    assert NinetyNineProblems.p102_lastBut([1, 2, 99, 0]) == 99
+    assert NinetyNineProblems.p102_last_but([1, 2, 99, 0]) == 99
   end
 
   test "p103_elementAt(list, k)" do
-    assert NinetyNineProblems.p103_elementAt([1, 2, 99, 0], 2) == 99
+    assert NinetyNineProblems.p103_element_at([1, 2, 99, 0], 2) == 99
   end
 
   test "p104_length(list)" do
@@ -23,7 +23,7 @@ defmodule NinetyNineProblemsTest do
   end
 
   test "p106_isPalindrom(list)" do
-    assert NinetyNineProblems.p106_isPalindrom('racecar')
+    assert NinetyNineProblems.p106_palindrom?('racecar')
   end
 
   test "p107_flatten(list)" do

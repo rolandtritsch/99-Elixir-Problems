@@ -12,21 +12,21 @@ defmodule NinetyNineProblems do
   @doc """
   Find the last but one element of a list.
   """
-  def p102_lastBut([e | [_]]), do: e
-  def p102_lastBut([_ | rest]), do: p102_lastBut(rest)
+  def p102_last_but([e | [_]]), do: e
+  def p102_last_but([_ | rest]), do: p102_last_but(rest)
 
   @doc """
   Find the K'th element of a list.
   """
-  def p103_elementAt([e | _], 0), do: e
-  def p103_elementAt([_ | rest], k), do: p103_elementAt(rest, k - 1)
+  def p103_element_at([e | _], 0), do: e
+  def p103_element_at([_ | rest], k), do: p103_element_at(rest, k - 1)
 
   @doc """
   Find the number of elements of a list.
   """
-  def p104_length(l), do: p104_lengthN(l, 0)
-  defp p104_lengthN([], n), do: n
-  defp p104_lengthN([_ | rest], n), do: p104_lengthN(rest, n + 1)
+  def p104_length(l), do: p104_length_n(l, 0)
+  defp p104_length_n([], n), do: n
+  defp p104_length_n([_ | rest], n), do: p104_length_n(rest, n + 1)
 
   @doc """
   Reverse a list.
@@ -39,7 +39,7 @@ defmodule NinetyNineProblems do
 
   A palindrome can be read forward or backward; e.g. [x,a,m,a,x].
   """
-  def p106_isPalindrom(l), do: l == p105_reverse(l)
+  def p106_palindrom?(l), do: l == p105_reverse(l)
 
   @doc """
   Flatten a nested list structure.
