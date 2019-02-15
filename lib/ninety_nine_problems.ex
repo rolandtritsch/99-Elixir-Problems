@@ -25,8 +25,8 @@ defmodule NinetyNineProblems do
   Find the number of elements of a list.
   """
   def p104_length(l), do: p104_lengthN(l, 0)
-  def p104_lengthN([], n), do: n
-  def p104_lengthN([_ | rest], n), do: p104_lengthN(rest, n + 1)
+  defp p104_lengthN([], n), do: n
+  defp p104_lengthN([_ | rest], n), do: p104_lengthN(rest, n + 1)
 
   @doc """
   Reverse a list.
