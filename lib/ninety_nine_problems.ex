@@ -33,4 +33,10 @@ defmodule NinetyNineProblems do
   """
   def p105_reverse([]), do: []
   def p105_reverse([e | rest]), do: p105_reverse(rest) ++ [e]
+
+  @doc """
+  Find out whether a list is a palindrome.
+  A palindrome can be read forward or backward; e.g. [x,a,m,a,x].
+  """
+  def p106_isPalindrom(l), do: l == p105_reverse(l)
 end

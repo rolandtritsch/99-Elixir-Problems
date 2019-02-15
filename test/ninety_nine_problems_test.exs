@@ -21,4 +21,8 @@ defmodule NinetyNineProblemsTest do
   test "p105_reverse(list)" do
     assert NinetyNineProblems.p105_reverse([1, 2, 99, 0]) == [0, 99, 2, 1]
   end
+
+  test "p106_isPalindrom(list)" do
+    assert NinetyNineProblems.p106_isPalindrom('racecar')
+  end
 end
