@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+    - image: circleci/elixir:1.6.5
+    working_directory: ~
+    steps:
+      - checkout
+      - run: mix test
+
+workflows:
+  version: 2
+  full_cycle:
+    jobs:
+      - build
