@@ -1,6 +1,6 @@
-# NinetyNineProblems
+# 99 Elixir Problems
 
-**TODO: Add description**
+An implementation of the famous [99 Prolog Problems](https://sites.google.com/site/prologsite/prolog-problems) in Elixir.
 
 ## Installation
 
@@ -19,3 +19,9 @@ Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_do
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/ninety_nine_problems](https://hexdocs.pm/ninety_nine_problems).
 
+## Running it
+
+* install `elixir`
+* install `git`
+* clone the repo
+* run `mix test`
