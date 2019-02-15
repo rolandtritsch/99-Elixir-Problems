@@ -17,4 +17,8 @@ defmodule NinetyNineProblemsTest do
   test "p104_length(list)" do
     assert NinetyNineProblems.p104_length([1, 2, 99, 0]) == 4
   end
+
+  test "p105_reverse(list)" do
+    assert NinetyNineProblems.p105_reverse([1, 2, 99, 0]) == [0, 99, 2, 1]
+  end
 end

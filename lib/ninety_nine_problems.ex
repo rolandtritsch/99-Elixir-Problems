@@ -27,4 +27,10 @@ defmodule NinetyNineProblems do
   def p104_length(l), do: p104_lengthN(l, 0)
   def p104_lengthN([], n), do: n
   def p104_lengthN([_ | rest], n), do: p104_lengthN(rest, n + 1)
+
+  @doc """
+  Reverse a list.
+  """
+  def p105_reverse([]), do: []
+  def p105_reverse([e | rest]), do: p105_reverse(rest) ++ [e]
 end
