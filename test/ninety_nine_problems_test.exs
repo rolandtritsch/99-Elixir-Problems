@@ -25,4 +25,8 @@ defmodule NinetyNineProblemsTest do
   test "p106_isPalindrom(list)" do
     assert NinetyNineProblems.p106_isPalindrom('racecar')
   end
+
+  test "p107_flatten(list)" do
+    assert NinetyNineProblems.p107_flatten([1, [2, 2], 1, [2, 2, [3, 3, 3]]]) == [1, 2, 2, 1, 2, 2, 3, 3, 3]
+  end
 end

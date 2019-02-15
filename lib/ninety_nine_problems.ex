@@ -36,7 +36,24 @@ defmodule NinetyNineProblems do
 
   @doc """
   Find out whether a list is a palindrome.
+
   A palindrome can be read forward or backward; e.g. [x,a,m,a,x].
   """
   def p106_isPalindrom(l), do: l == p105_reverse(l)
+
+  @doc """
+  Flatten a nested list structure.
+
+  Transform a list, possibly holding lists as elements into a 'flat'
+  list by replacing each list with its elements (recursively).
+
+  Example:
+  ?- my_flatten([a, [b, [c, d], e]], X).
+  X = [a, b, c, d, e]
+
+  Hint: Use the predefined predicates is_list/1 and append/3
+  """
+  def p107_flatten([]), do: []
+  def p107_flatten([e | rest]) when is_list(e), do: p107_flatten(e) ++ p107_flatten(rest)
+  def p107_flatten([e | rest]), do: [e] ++ p107_flatten(rest)
 end
