@@ -6,7 +6,9 @@ jobs:
     working_directory: ~/99-Elixir-Problems
     steps:
       - checkout
-      - run: mix test
+      - run:
+          name: "Run test(s)"
+          command: mix test
 
 workflows:
   version: 2
