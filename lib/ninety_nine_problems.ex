@@ -56,4 +56,20 @@ defmodule NinetyNineProblems do
   def p107_flatten([]), do: []
   def p107_flatten([e | rest]) when is_list(e), do: p107_flatten(e) ++ p107_flatten(rest)
   def p107_flatten([e | rest]), do: [e] ++ p107_flatten(rest)
+
+  @doc """
+  Eliminate consecutive duplicates of list elements.
+
+  If a list contains repeated elements they should be replaced with
+  a single copy of the element. The order of the elements should not
+  be changed.
+
+  Example:
+  ?- compress([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
+  X = [a,b,c,a,d,e]
+  """
+  def p108_compress([]), do: []
+  def p108_compress([e]), do: [e]
+  def p108_compress([e | [ee | rest]]) when e == ee, do: p108_compress([ee | rest])
+  def p108_compress([e | [ee | rest]]), do: [e] ++ p108_compress([ee | rest])
 end

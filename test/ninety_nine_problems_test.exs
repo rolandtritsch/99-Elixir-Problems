@@ -29,4 +29,9 @@ defmodule NinetyNineProblemsTest do
   test "p107_flatten(list)" do
     assert NinetyNineProblems.p107_flatten([1, [2, 2], 1, [2, 2, [3, 3, 3]]]) == [1, 2, 2, 1, 2, 2, 3, 3, 3]
   end
+
+  test "p108_compress(list)" do
+    assert NinetyNineProblems.p108_compress([1, 2, 2, 1, 2, 2, 3, 3, 3]) == [1, 2, 1, 2, 3]
+    assert NinetyNineProblems.p108_compress('aaaabccaadeeee') == 'abcade'
+  end
 end
