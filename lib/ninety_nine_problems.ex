@@ -48,7 +48,7 @@ defmodule NinetyNineProblems do
   list by replacing each list with its elements (recursively).
 
   Example:
-  ?- my_flatten([a, [b, [c, d], e]], X).
+  my_flatten([a, [b, [c, d], e]], X).
   X = [a, b, c, d, e]
 
   Hint: Use the predefined predicates is_list/1 and append/3
@@ -65,11 +65,25 @@ defmodule NinetyNineProblems do
   be changed.
 
   Example:
-  ?- compress([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
+  compress([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
   X = [a,b,c,a,d,e]
   """
   def p108_compress([]), do: []
   def p108_compress([e]), do: [e]
   def p108_compress([e | [ee | rest]]) when e == ee, do: p108_compress([ee | rest])
   def p108_compress([e | [ee | rest]]), do: [e] ++ p108_compress([ee | rest])
+
+  @doc """
+  Pack consecutive duplicates of list elements into sublists.
+
+  If a list contains repeated elements they should be placed in separate sublists.
+
+  Example:
+  pack([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
+  X = [[a,a,a,a],[b],[c,c],[a,a],[d],[e,e,e,e]]
+  """
+  def p109_pack(l), do: p109_pack_acc(l, [])
+  defp p109_pack_acc([], acc), do: acc
+  defp p109_pack_acc([e | [ee | rest]], acc) when e == ee, do: p109_pack_acc([ee | rest], [e | acc])
+  defp p109_pack_acc([e | rest], acc), do: [[e | acc]] ++ p109_pack_acc(rest, [])
 end

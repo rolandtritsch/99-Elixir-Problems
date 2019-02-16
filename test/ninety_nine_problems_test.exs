@@ -34,4 +34,9 @@ defmodule NinetyNineProblemsTest do
     assert NinetyNineProblems.p108_compress([1, 2, 2, 1, 2, 2, 3, 3, 3]) == [1, 2, 1, 2, 3]
     assert NinetyNineProblems.p108_compress('aaaabccaadeeee') == 'abcade'
   end
+
+  test "p109_pack(list)" do
+    assert NinetyNineProblems.p109_pack([1, 2, 2, 1, 2, 2, 3, 3, 3]) == [[1], [2, 2], [1], [2, 2], [3, 3, 3]]
+    assert NinetyNineProblems.p109_pack('aaaabccaadeeee') == ['aaaa', 'b', 'cc', 'aa', 'd', 'eeee']
+  end
 end
