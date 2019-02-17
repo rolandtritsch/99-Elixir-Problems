@@ -54,4 +54,16 @@ defmodule NinetyNineProblemsTest do
   test "p112_decode(list)" do
     assert p112_decode([{4, 'a'}, 'b', {2, 'c'}, {2, 'a'}, 'd', {4, 'e'}]) == ['a','a','a','a','b','c','c','a','a','d','e','e','e','e']
   end
+
+  test "p113_encode_direct(list)" do
+    assert p113_encode_direct(['a','a','a','a','b','c','c','a','a','d','e','e','e','e']) == [{4, 'a'}, 'b', {2, 'c'}, {2, 'a'}, 'd', {4, 'e'}]
+  end
+
+  test "p114_dupli(list)" do
+    assert p114_dupli(['a','b','c','c','d']) == ['a','a','b','b','c','c','c','c','d','d']
+  end
+
+  test "p115_dupli_n(list)" do
+    assert p115_dupli_n(['a','b','c'], 3) == ['a','a','a','b','b','b','c','c','c']
+  end
 end

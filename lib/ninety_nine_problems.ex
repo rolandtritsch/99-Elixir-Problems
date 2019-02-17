@@ -1,7 +1,4 @@
 defmodule NinetyNineProblems do
-  import Enum
-  import List
-
   @moduledoc """
   An implementation of the famous 99 Prolog Problems in Elixir.
   """
@@ -104,7 +101,7 @@ defmodule NinetyNineProblems do
   def p110_encode(l) do
     packed = p109_pack(l)
     encode = fn [e | rest] -> {(length rest) + 1, e} end
-    map(packed, encode)
+    Enum.map(packed, encode)
   end
 
   @doc """
@@ -126,7 +123,7 @@ defmodule NinetyNineProblems do
       else e
       end
     end
-    map(packed, encode)
+    Enum.map(packed, encode)
   end
 
   @doc """
@@ -137,6 +134,44 @@ defmodule NinetyNineProblems do
   """
   def p112_decode(l), do: p112_decoder(l)
   defp p112_decoder([]), do: []
-  defp p112_decoder([{count, e} | rest]), do: duplicate(e, count) ++ p112_decoder(rest)
+  defp p112_decoder([{count, e} | rest]), do: List.duplicate(e, count) ++ p112_decoder(rest)
   defp p112_decoder([e | rest]), do: [e] ++ p112_decoder(rest)
+
+  @doc """
+  Run-length encoding of a list (direct solution).
+
+  Implement the so-called run-length encoding data compression method directly.
+  I.e. don't explicitly create the sublists containing the duplicates, as in
+  problem 1.09, but only count them. As in problem 1.11, simplify the result
+  list by replacing the singleton terms [1,X] by X.
+
+  Example:
+  encode_direct([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
+  X = [[4,a],b,[2,c],[2,a],d,[4,e]]
+  """
+  def p113_encode_direct(l), do: p113_encoder(l, 1)
+  defp p113_encoder([e], counter), do: [{counter, e}]
+  defp p113_encoder([e | [ee | rest]], counter) when e == ee, do: p113_encoder([ee | rest], counter + 1)
+  defp p113_encoder([e | [ee | rest]], 1) when e != ee, do: [e | p113_encoder([ee | rest], 1)]
+  defp p113_encoder([e | [ee | rest]], counter), do: [{counter, e} | p113_encoder([ee | rest], 1)]
+
+  @doc """
+  Duplicate the elements of a list.
+
+  Example:
+  dupli([a,b,c,c,d],X).
+  X = [a,a,b,b,c,c,c,c,d,d]
+  """
+  def p114_dupli([]), do: []
+  def p114_dupli([e | rest]), do: [e] ++ [e] ++ p114_dupli(rest)
+
+  @doc """
+  Duplicate the elements of a list a given number of times.
+
+  Example:
+  dupli([a,b,c],3,X).
+  X = [a,a,a,b,b,b,c,c,c]
+  """
+  def p115_dupli_n([], _), do: []
+  def p115_dupli_n([e | rest], n), do: List.duplicate(e, n) ++ p115_dupli_n(rest, n)
 end
