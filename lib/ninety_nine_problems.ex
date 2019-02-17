@@ -162,8 +162,8 @@ defmodule NinetyNineProblems do
   dupli([a,b,c,c,d],X).
   X = [a,a,b,b,c,c,c,c,d,d]
   """
-  def p114_dupli([]), do: []
-  def p114_dupli([e | rest]), do: [e] ++ [e] ++ p114_dupli(rest)
+  def p114_duplicate([]), do: []
+  def p114_duplicate([e | rest]), do: [e] ++ [e] ++ p114_duplicate(rest)
 
   @doc """
   Duplicate the elements of a list a given number of times.
@@ -172,6 +172,85 @@ defmodule NinetyNineProblems do
   dupli([a,b,c],3,X).
   X = [a,a,a,b,b,b,c,c,c]
   """
-  def p115_dupli_n([], _), do: []
-  def p115_dupli_n([e | rest], n), do: List.duplicate(e, n) ++ p115_dupli_n(rest, n)
+  def p115_duplicate_n([], _), do: []
+  def p115_duplicate_n([e | rest], n), do: List.duplicate(e, n) ++ p115_duplicate_n(rest, n)
+
+  @doc """
+  Drop every N'th element from a list.
+
+  Example:
+  drop([a,b,c,d,e,f,g,h,i,k],3,X).
+  X = [a,b,d,e,g,h,k]
+  """
+  def p116_drop_every(l, n), do: p116_drop_n_i(l, n, n)
+  defp p116_drop_n_i([_], _, 1), do: []
+  defp p116_drop_n_i([e], _, _), do: [e]
+  defp p116_drop_n_i([_ | rest], n, 1), do: p116_drop_n_i(rest, n, n)
+  defp p116_drop_n_i([e | rest], n, i), do: [e] ++ p116_drop_n_i(rest, n, i - 1)
+
+  @doc """
+  Split a list into two parts; the length of the first part is given.
+
+  Do not use any predefined predicates.
+
+  Example:
+  split([a,b,c,d,e,f,g,h,i,k],3,L1,L2).
+  L1 = [a,b,c]
+  L2 = [d,e,f,g,h,i,k]
+  """
+  def p117_split_at(l, n), do: p117_split_at_acc(l, n, [], [])
+  defp p117_split_at_acc([], _, first, second), do: {first, second}
+  defp p117_split_at_acc([e | rest], i, first, second) when i > 0, do: p117_split_at_acc(rest, i - 1, first ++ [e], second)
+  defp p117_split_at_acc([e | rest], i, first, second), do: p117_split_at_acc(rest, i - 1, first, second ++ [e])
+
+  @doc """
+  Extract a slice from a list.
+
+  Given two indices, I and K, the slice is the list containing the elements
+  between the I'th and K'th element of the original list (both limits included).
+
+  Start counting the elements with 1.
+
+  Example:
+  slice([a,b,c,d,e,f,g,h,i,k],3,7,L).
+  L = [c,d,e,f,g]
+  """
+  def p118_slice(l, i, k), do: p118_slice_acc(l, i, k, [])
+  defp p118_slice_acc([], _, _, slice), do: slice
+  defp p118_slice_acc([_ | rest], i, k, slice) when i > 1, do: p118_slice_acc(rest, i - 1, k - 1, slice)
+  defp p118_slice_acc([e | rest], i, k, slice) when i <= 1 and k > 0, do: p118_slice_acc(rest, i - 1, k - 1, slice ++ [e])
+  defp p118_slice_acc(_, i, k, slice) when i <= 1 and k <= 0, do: slice
+
+  @doc """
+  Rotate a list N places to the left.
+
+  Examples:
+  rotate([a,b,c,d,e,f,g,h],3,X).
+  X = [d,e,f,g,h,a,b,c]
+
+  rotate([a,b,c,d,e,f,g,h],-2,X).
+  X = [g,h,a,b,c,d,e,f]
+
+  Hint: Use the predefined predicates length/2 and append/3, as well as
+  the result of problem 1.17.
+  """
+  def p119_rotate_n(l, 0), do: l
+  def p119_rotate_n(l, n) when n > 0 do
+    {first, second} = p117_split_at(l, n)
+    second ++ first
+  end
+  def p119_rotate_n(l, n) do
+    {first, second} = p117_split_at(l, n + (length l))
+    second ++ first
+  end
+
+  @doc """
+  Remove the K'th element from a list.
+
+  Example:
+  remove_at(X,[a,b,c,d],2,R).
+  X = b
+  R = [a,c,d]
+  """
+  def p120_remove_at(l, k), do: {Enum.at(l, k - 1), List.delete_at(l, k - 1)}
 end

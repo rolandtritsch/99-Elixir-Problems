@@ -59,11 +59,32 @@ defmodule NinetyNineProblemsTest do
     assert p113_encode_direct(['a','a','a','a','b','c','c','a','a','d','e','e','e','e']) == [{4, 'a'}, 'b', {2, 'c'}, {2, 'a'}, 'd', {4, 'e'}]
   end
 
-  test "p114_dupli(list)" do
-    assert p114_dupli(['a','b','c','c','d']) == ['a','a','b','b','c','c','c','c','d','d']
+  test "p114_duplicate(list)" do
+    assert p114_duplicate(['a','b','c','c','d']) == ['a','a','b','b','c','c','c','c','d','d']
   end
 
-  test "p115_dupli_n(list)" do
-    assert p115_dupli_n(['a','b','c'], 3) == ['a','a','a','b','b','b','c','c','c']
+  test "p115_duplicate_n(list)" do
+    assert p115_duplicate_n(['a','b','c'], 3) == ['a','a','a','b','b','b','c','c','c']
+  end
+
+  test "p116_drop_every(list, n)" do
+    assert p116_drop_every(['a','b','c','d','e','f','g','h','i','k'], 3) == ['a','b','d','e','g','h','k']
+  end
+
+  test "p117_split_at(list, n)" do
+    assert p117_split_at(['a','b','c','d','e','f','g','h','i','k'], 3) == {['a','b','c'], ['d','e','f','g','h','i','k']}
+  end
+
+  test "p118_slice(list, i, k)" do
+    assert p118_slice(['a','b','c','d','e','f','g','h','i','k'], 3, 7) == ['c','d','e','f','g']
+  end
+
+  test "p119_rotate_n(list, n)" do
+    assert p119_rotate_n(['a','b','c','d','e','f','g','h'], 3) == ['d','e','f','g','h','a','b','c']
+    assert p119_rotate_n(['a','b','c','d','e','f','g','h'], -2) == ['g','h','a','b','c','d','e','f']
+  end
+
+  test "p120_remove_at(list, k)" do
+    assert p120_remove_at(['a','b','c','d'], 2) == {'b', ['a','c','d']}
   end
 end
