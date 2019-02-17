@@ -35,21 +35,20 @@ defmodule NinetyNineProblemsTest do
 
   test "p108_compress(list)" do
     assert p108_compress([1, 2, 2, 1, 2, 2, 3, 3, 3]) == [1, 2, 1, 2, 3]
-    assert p108_compress('aaaabccaadeeee') == 'abcade'
+    assert p108_compress(['a','a','a','a','b','c','c','a','a','d','e','e','e','e']) == ['a','b','c','a','d','e']
   end
 
   test "p109_pack(list)" do
     assert p109_pack([1, 2, 2, 1, 2, 2, 3, 3, 3]) == [[1], [2, 2], [1], [2, 2], [3, 3, 3]]
-    assert p109_pack('aaaabccaadeeee') == ['aaaa', 'b', 'cc', 'aa', 'd', 'eeee']
+    assert p109_pack(['a','a','a','a','b','c','c','a','a','d','e','e','e','e']) == [['a','a','a','a'], ['b'], ['c','c'], ['a','a'], ['d'], ['e','e','e','e']]
   end
 
   test "p110_encode(list)" do
-    #assert p110_encode('aaaabccaadeeee') == [{4, 'a'}, {1, 'b'}, {2, 'c'}, {2, 'a'}, {1, 'd'}, {4, 'e'}]
-    assert p110_encode('aaaabccaadeeee') == [{4, 97}, {1, 98}, {2, 99}, {2, 97}, {1, 100}, {4, 101}]
+    assert p110_encode(['a','a','a','a','b','c','c','a','a','d','e','e','e','e']) == [{4, 'a'}, {1, 'b'}, {2, 'c'}, {2, 'a'}, {1, 'd'}, {4, 'e'}]
   end
 
   test "p111_encode_modified(list)" do
-    assert p111_encode_modified('aaaabccaadeeee') == [{4, 97}, 98, {2, 99}, {2, 97}, 100, {4, 101}]
+    assert p111_encode_modified(['a','a','a','a','b','c','c','a','a','d','e','e','e','e']) == [{4, 'a'}, 'b', {2, 'c'}, {2, 'a'}, 'd', {4, 'e'}]
   end
 
   test "p112_decode(list)" do
