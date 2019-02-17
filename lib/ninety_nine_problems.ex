@@ -1,4 +1,7 @@
 defmodule NinetyNineProblems do
+  import Enum
+  import List
+
   @moduledoc """
   An implementation of the famous 99 Prolog Problems in Elixir.
   """
@@ -86,4 +89,54 @@ defmodule NinetyNineProblems do
   defp p109_pack_acc([], acc), do: acc
   defp p109_pack_acc([e | [ee | rest]], acc) when e == ee, do: p109_pack_acc([ee | rest], [e | acc])
   defp p109_pack_acc([e | rest], acc), do: [[e | acc]] ++ p109_pack_acc(rest, [])
+
+  @doc """
+  Run-length encoding of a list.
+
+  Use the result of problem 1.09 to implement the so-called run-length encoding data
+  compression method. Consecutive duplicates of elements are encoded as terms [N,E]
+  where N is the number of duplicates of the element E.
+
+  Example:
+  encode([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
+  X = [[4,a],[1,b],[2,c],[2,a],[1,d],[4,e]]
+  """
+  def p110_encode(l) do
+    packed = p109_pack(l)
+    encode = fn [e | rest] -> {(length rest) + 1, e} end
+    map(packed, encode)
+  end
+
+  @doc """
+  Modified run-length encoding.
+
+  Modify the result of problem 1.10 in such a way that if an element has no duplicates
+  it is simply copied into the result list. Only elements with duplicates are transferred
+  as [N,E] terms.
+
+  Example:
+  encode_modified([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
+  X = [[4,a],b,[2,c],[2,a],d,[4,e]]
+  """
+  def p111_encode_modified(l) do
+    packed = p109_pack(l)
+    encode = fn [e | rest] ->
+      if (length rest) > 0 do
+        {(length rest) + 1, e}
+      else e
+      end
+    end
+    map(packed, encode)
+  end
+
+  @doc """
+  Decode a run-length encoded list.
+
+  Given a run-length code list generated as specified in problem 1.11.
+  Construct its uncompressed version.
+  """
+  def p112_decode(l), do: p112_decoder(l)
+  defp p112_decoder([]), do: []
+  defp p112_decoder([{count, e} | rest]), do: duplicate(e, count) ++ p112_decoder(rest)
+  defp p112_decoder([e | rest]), do: [e] ++ p112_decoder(rest)
 end
