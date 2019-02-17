@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: "Run test(s)"
-          command: mix deps.get && mix test
+          command: mix local.hex --force && mix deps.get && mix test
 
 workflows:
   version: 2
