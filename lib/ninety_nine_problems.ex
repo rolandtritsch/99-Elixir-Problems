@@ -253,4 +253,39 @@ defmodule NinetyNineProblems do
   R = [a,c,d]
   """
   def p120_remove_at(l, k), do: {Enum.at(l, k - 1), List.delete_at(l, k - 1)}
+
+  @doc """
+  Insert an element at a given position into a list.
+
+  Example:
+  insert_at(alfa,[a,b,c,d],2,L).
+  L = [a,alfa,b,c,d]
+  """
+  def p121_insert_at(l, k, e), do: List.insert_at(l, k - 1, e)
+
+  @doc """
+  Create a list containing all integers within a given range.
+
+  Example:
+  range(4,9,L).
+  L = [4,5,6,7,8,9]
+  """
+  def p122_range(from, to), do: Enum.to_list(Range.new(from, to))
+
+  @doc """
+  Extract a given number of randomly selected elements from a list.
+
+  The selected items shall be put into a result list.
+
+  Example:
+  rnd_select([a,b,c,d,e,f,g,h],3,L).
+  L = [e,d,a]
+  """
+  def p123_random_select_n(l, n), do: p123_random_select_n_acc(l, n, [])
+  defp p123_random_select_n_acc([], _, acc), do: acc
+  defp p123_random_select_n_acc(_, 0, acc), do: acc
+  defp p123_random_select_n_acc(l, n, acc) do
+    i = Random.randint(0, length l)
+    p123_random_select_n_acc(List.delete_at(l, i), n - 1, [Enum.at(l, i) | acc])
+  end
 end

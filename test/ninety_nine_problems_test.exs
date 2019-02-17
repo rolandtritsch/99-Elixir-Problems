@@ -87,4 +87,16 @@ defmodule NinetyNineProblemsTest do
   test "p120_remove_at(list, k)" do
     assert p120_remove_at(['a','b','c','d'], 2) == {'b', ['a','c','d']}
   end
+
+  test "p121_insert_at(list, k, e)" do
+    assert p121_insert_at(['a','b','c','d'], 2, 'z') == ['a','z','b','c','d']
+  end
+
+  test "p122_range(from, to)" do
+    assert p122_range(4,9) == [4,5,6,7,8,9]
+  end
+
+  test "p123_random_select_n(l, n)" do
+    assert p123_random_select_n(['a','b','c','d','e','f','g','h'], 3) == ['e','h','c']
+  end
 end
