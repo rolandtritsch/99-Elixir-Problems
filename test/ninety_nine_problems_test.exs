@@ -112,4 +112,9 @@ defmodule NinetyNineProblemsTest do
     assert p126_combination_n(['a','b','c'], 3) == [['a','b','c']]
     assert p126_combination_n(['a','b','c','d','e','f'], 3) == [['a', 'b', 'c'], ['a', 'b', 'd'], ['a', 'b', 'e'], ['a', 'b', 'f'], ['a', 'c', 'd'], ['a', 'c', 'e'], ['a', 'c', 'f'], ['a', 'd', 'e'], ['a', 'd', 'f'], ['a', 'e', 'f'], ['b', 'c', 'd'], ['b', 'c', 'e'], ['b', 'c', 'f'], ['b', 'd', 'e'], ['b', 'd', 'f'], ['b', 'e', 'f'], ['c', 'd', 'e'], ['c', 'd', 'f'], ['c', 'e', 'f'], ['d', 'e', 'f']]
   end
+
+  test "p127_group(ls, gs)" do
+    assert p127_group3(["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]) == [["aldo","beat"], ["carla","david","evi"], ["flip","gary","hugo","ida"]]
+    assert p127_group(["aldo","beat","carla","david","evi","flip","gary","hugo","ida"], [2,2,5]) == [["aldo","beat"], ["carla","david"], ["evi","flip","gary","hugo","ida"]]
+  end
 end
