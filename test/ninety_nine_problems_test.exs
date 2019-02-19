@@ -117,4 +117,9 @@ defmodule NinetyNineProblemsTest do
     assert p127_group3(["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]) == [["aldo","beat"], ["carla","david","evi"], ["flip","gary","hugo","ida"]]
     assert p127_group(["aldo","beat","carla","david","evi","flip","gary","hugo","ida"], [2,2,5]) == [["aldo","beat"], ["carla","david"], ["evi","flip","gary","hugo","ida"]]
   end
+
+  test "p128_lsort(ls)" do
+    assert p128_lsort([['a','b','c'],['d','e'],['f','g','h'],['d','e'],['i','j','k','l'],['m','n'],['o']])  == [['o'], ['d','e'], ['d','e'], ['m','n'], ['a','b','c'], ['f','g','h'], ['i','j','k','l']]
+    assert p128_lfsort([['a','b','c'],['d','e'],['f','g','h'],['d','e'],['i','j','k','l'],['m','n'],['o']]) == [['o'], ['i','j','k','l'], ['a','b','c'], ['f','g','h'], ['d','e'], ['d','e'], ['m','n']]
+  end
 end
