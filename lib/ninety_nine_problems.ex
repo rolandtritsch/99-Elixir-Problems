@@ -2,7 +2,6 @@ defmodule NinetyNineProblems do
   @moduledoc """
   An implementation of the famous 99 Prolog Problems in Elixir.
   """
-
   @doc """
   Find the last element of a list.
   """
@@ -285,7 +284,70 @@ defmodule NinetyNineProblems do
   defp p123_random_select_n_acc([], _, acc), do: acc
   defp p123_random_select_n_acc(_, 0, acc), do: acc
   defp p123_random_select_n_acc(l, n, acc) do
-    i = Random.randint(0, length l)
+    i = Random.randint(0, (length l) - 1)
     p123_random_select_n_acc(List.delete_at(l, i), n - 1, [Enum.at(l, i) | acc])
   end
+
+  @doc """
+  Lotto: Draw N different random numbers from the set 1..M.
+
+  The selected numbers shall be put into a result list.
+
+  Example:
+  lotto(6,49,L).
+  L = [23,1,17,33,21,37]
+
+  Hint: Combine the solutions of problems 1.22 and 1.23.
+  """
+  def p124_lotto_n_m(n, m), do: p123_random_select_n(p122_range(1, m), n)
+
+  @doc """
+  Generate a random permutation of the elements of a list.
+
+  Example:
+  rnd_permu([a,b,c,d,e,f],L).
+  L = [b,a,d,c,e,f]
+
+  Hint: Use the solution of problem 1.23.
+  """
+  def p125_random_permutation(l), do: p123_random_select_n(l, length l)
+
+  @doc """
+  Generate the combinations of K distinct objects chosen from the N elements of a list.
+
+  In how many ways can a committee of 3 be chosen from a group of 12 people?
+  We all know that there are C(12,3) = 220 possibilities (C(N,K) denotes the
+  well-known binomial coefficients). For pure mathematicians, this result may
+  be great. But we want to really generate all the possibilities (via backtracking).
+
+  Example:
+  combination(3,[a,b,c,d,e,f],L).
+  L = [a,b,c] ;
+  L = [a,b,d] ;
+  L = [a,b,e] ;
+  ...
+  """
+  def p126_combination_n(l, n) do
+    # TODO: curry this on the fly or find a way to implement it with a macro.
+    p126_f = fn n ->
+      case n do
+        1 -> fn(x1) -> [x1] end
+        2 -> fn(x1,x2) -> [x1,x2] end
+        3 -> fn(x1,x2,x3) -> [x1,x2,x3] end
+        4 -> fn(x1,x2,x3,x4) -> [x1,x2,x3,x4] end
+        _ -> raise "Number of dimensions out of range"
+      end
+    end
+
+    sort_lists = fn l -> Enum.sort(l) end
+    is_uniq = fn l -> length(Enum.uniq(l)) == length(l) end
+
+    cartesian = p126_cartesian(List.duplicate(l, n), p126_f.(n))
+    product = Enum.map(cartesian, sort_lists)
+    Enum.uniq(Enum.filter(product, is_uniq))
+  end
+  defp p126_cartesian([], _), do: []
+  defp p126_cartesian(lists, f), do: p126_cartesian(Enum.reverse(lists), [], f) |> Enum.to_list()
+  defp p126_cartesian([], elems, f), do: [apply(f, elems)]
+  defp p126_cartesian([h | tail], elems, f), do: Enum.flat_map(h, fn x -> p126_cartesian(tail, [x | elems], f) end)
 end

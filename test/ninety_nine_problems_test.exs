@@ -97,6 +97,19 @@ defmodule NinetyNineProblemsTest do
   end
 
   test "p123_random_select_n(l, n)" do
-    assert p123_random_select_n(['a','b','c','d','e','f','g','h'], 3) == ['e','h','c']
+    assert p123_random_select_n(['a','b','c','d','e','f','g','h'], 3) == ['e','h','b']
+  end
+
+  test "p124_lotto_n_m(n, m)" do
+    assert p124_lotto_n_m(6, 49) == [49, 45, 41, 28, 43, 12]
+  end
+
+  test "p125_random_permutation(l)" do
+    assert p125_random_permutation(['a','b','c','d','e','f']) == ['a', 'c', 'e', 'd', 'f', 'b']
+  end
+
+  test "p126_combination_n(l, n)" do
+    assert p126_combination_n(['a','b','c'], 3) == [['a','b','c']]
+    assert p126_combination_n(['a','b','c','d','e','f'], 3) == [['a', 'b', 'c'], ['a', 'b', 'd'], ['a', 'b', 'e'], ['a', 'b', 'f'], ['a', 'c', 'd'], ['a', 'c', 'e'], ['a', 'c', 'f'], ['a', 'd', 'e'], ['a', 'd', 'f'], ['a', 'e', 'f'], ['b', 'c', 'd'], ['b', 'c', 'e'], ['b', 'c', 'f'], ['b', 'd', 'e'], ['b', 'd', 'f'], ['b', 'e', 'f'], ['c', 'd', 'e'], ['c', 'd', 'f'], ['c', 'e', 'f'], ['d', 'e', 'f']]
   end
 end
