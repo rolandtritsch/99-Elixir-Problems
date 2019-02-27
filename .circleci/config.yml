@@ -14,7 +14,7 @@ jobs:
           command: mix deps.get
       - run:
           name: "Run dialyzer ..."
-          command: mix dialyser
+          command: mix dialyzer
       - run:
           name: "Run test(s) ..."
           command: mix test
