@@ -7,8 +7,17 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Run test(s)"
-          command: mix local.hex --force && mix deps.get && mix test
+          name: "Init ..."
+          command: mix local.hex --force
+      - run:
+          name: "Get dependencies ..."
+          command: mix deps.get
+      - run:
+          name: "Run dialyzer ..."
+          command: mix dialyser
+      - run:
+          name: "Run test(s) ..."
+          command: mix test
 
 workflows:
   version: 2
