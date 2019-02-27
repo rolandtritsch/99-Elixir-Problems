@@ -53,6 +53,7 @@ defmodule NinetyNineProblemsTest do
 
   test "p112_decode(list)" do
     assert p112_decode([{4, 'a'}, 'b', {2, 'c'}, {2, 'a'}, 'd', {4, 'e'}]) == ['a','a','a','a','b','c','c','a','a','d','e','e','e','e']
+    assert p111_encode_modified('aaaabccaadeeee') |> p112_decode == 'aaaabccaadeeee'
   end
 
   test "p113_encode_direct(list)" do

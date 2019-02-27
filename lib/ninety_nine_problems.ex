@@ -2,8 +2,14 @@ defmodule NinetyNineProblems do
   @moduledoc """
   An implementation of the famous 99 Prolog Problems in Elixir.
   """
+
   @doc """
   Find the last element of a list.
+
+  ## Example
+
+  iex> NinetyNineProblems.p101_last([1,2,3])
+  3
   """
   @spec p101_last(l :: list(any)) :: any
   def p101_last([e | []]), do: e
@@ -11,6 +17,11 @@ defmodule NinetyNineProblems do
 
   @doc """
   Find the last but one element of a list.
+
+  ## Example
+
+  iex> NinetyNineProblems.p102_last_but([1,2,3])
+  2
   """
   @spec p102_last_but(l :: list(any)) :: any
   def p102_last_but([e | [_]]), do: e
@@ -18,6 +29,11 @@ defmodule NinetyNineProblems do
 
   @doc """
   Find the K'th element of a list.
+
+  ## Example
+
+  iex> NinetyNineProblems.p103_element_at([1,2,3], 0)
+  1
   """
   @spec p103_element_at(l :: list(any), k :: non_neg_integer) :: any
   def p103_element_at([e | _], 0), do: e
@@ -25,6 +41,11 @@ defmodule NinetyNineProblems do
 
   @doc """
   Find the number of elements of a list.
+
+  ## Example
+
+  iex> NinetyNineProblems.p104_length([1,2,3])
+  3
   """
   @spec p104_length(l :: list(any)) :: non_neg_integer
   def p104_length(l), do: p104_length_n(l, 0)
@@ -33,6 +54,11 @@ defmodule NinetyNineProblems do
 
   @doc """
   Reverse a list.
+
+  ## Example
+
+  iex> NinetyNineProblems.p105_reverse([1,2,3])
+  [3,2,1]
   """
   @spec p105_reverse(l :: list(any)) :: list(any)
   def p105_reverse([]), do: []
@@ -41,7 +67,13 @@ defmodule NinetyNineProblems do
   @doc """
   Find out whether a list is a palindrome.
 
-  A palindrome can be read forward or backward; e.g. [x,a,m,a,x].
+  A palindrome can be read forward or backward.
+
+
+  ## Example
+
+  iex> NinetyNineProblems.p106_palindrom?('xamax')
+  :true
   """
   @spec p106_palindrom?(l :: list(any)) :: boolean
   def p106_palindrom?(l), do: l == p105_reverse(l)
@@ -52,11 +84,12 @@ defmodule NinetyNineProblems do
   Transform a list, possibly holding lists as elements into a 'flat'
   list by replacing each list with its elements (recursively).
 
-  Example:
-  my_flatten([a, [b, [c, d], e]], X).
-  X = [a, b, c, d, e]
-
   Hint: Use the predefined predicates is_list/1 and append/3
+
+  ## Example
+
+  iex> NinetyNineProblems.p107_flatten(['a', ['b', ['c', 'd'], 'e']])
+  'abcde'
   """
   @spec p107_flatten(l :: list(any)) :: list(any)
   def p107_flatten([]), do: []
@@ -70,9 +103,10 @@ defmodule NinetyNineProblems do
   a single copy of the element. The order of the elements should not
   be changed.
 
-  Example:
-  compress([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
-  X = [a,b,c,a,d,e]
+  ## Example
+
+  iex> NinetyNineProblems.p108_compress('aaaabccaadeeee')
+  'abcade'
   """
   @spec p108_compress(l :: list(any)) :: list(any)
   def p108_compress([]), do: []
@@ -85,9 +119,10 @@ defmodule NinetyNineProblems do
 
   If a list contains repeated elements they should be placed in separate sublists.
 
-  Example:
-  pack([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
-  X = [[a,a,a,a],[b],[c,c],[a,a],[d],[e,e,e,e]]
+  ## Example
+
+  iex> NinetyNineProblems.p109_pack('aaaabccaadeeee')
+  ['aaaa','b','cc','aa','d','eeee']
   """
   @spec p109_pack(l :: list(any)) :: list(list(any))
   def p109_pack(l), do: p109_pack_acc(l, [])
@@ -102,9 +137,10 @@ defmodule NinetyNineProblems do
   compression method. Consecutive duplicates of elements are encoded as terms [N,E]
   where N is the number of duplicates of the element E.
 
-  Example:
-  encode([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
-  X = [[4,a],[1,b],[2,c],[2,a],[1,d],[4,e]]
+  ## Example
+
+  iex> NinetyNineProblems.p110_encode('aaaabccaadeeee')
+  [{4,?a},{1,?b},{2,?c},{2,?a},{1,?d},{4,?e}]
   """
   @spec p110_encode(l :: list(any)) :: list({pos_integer, any})
   def p110_encode(l) do
@@ -120,9 +156,10 @@ defmodule NinetyNineProblems do
   it is simply copied into the result list. Only elements with duplicates are transferred
   as [N,E] terms.
 
-  Example:
-  encode_modified([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
-  X = [[4,a],b,[2,c],[2,a],d,[4,e]]
+  ## Example
+
+  iex> NinetyNineProblems.p111_encode_modified('aaaabccaadeeee')
+  [{4,?a},?b,{2,?c},{2,?a},?d,{4,?e}]
   """
   @spec p111_encode_modified(l :: list(any)) :: list(any | list(any))
   def p111_encode_modified(l) do
@@ -141,6 +178,11 @@ defmodule NinetyNineProblems do
 
   Given a run-length code list generated as specified in problem 1.11.
   Construct its uncompressed version.
+
+  ## Example
+
+  iex> NinetyNineProblems.p112_decode([{4,'a'},{1,'b'},{2,'c'},{2,'a'},{1,'d'},{4,'e'}])
+  ['a','a','a','a','b','c','c','a','a','d','e','e','e','e']
   """
   @spec p112_decode(l :: list(any | list(any))) :: list(any)
   def p112_decode(l), do: p112_decoder(l)
@@ -156,9 +198,10 @@ defmodule NinetyNineProblems do
   problem 1.09, but only count them. As in problem 1.11, simplify the result
   list by replacing the singleton terms [1,X] by X.
 
-  Example:
-  encode_direct([a,a,a,a,b,c,c,a,a,d,e,e,e,e],X).
-  X = [[4,a],b,[2,c],[2,a],d,[4,e]]
+  ## Example
+
+  iex> NinetyNineProblems.p113_encode_direct('aaaabccaadeeee')
+  [{4,?a},?b,{2,?c},{2,?a},?d,{4,?e}]
   """
   @spec p113_encode_direct(l :: list(any)) :: list(any | list(any))
   def p113_encode_direct(l), do: p113_encoder(l, 1)
@@ -170,9 +213,10 @@ defmodule NinetyNineProblems do
   @doc """
   Duplicate the elements of a list.
 
-  Example:
-  dupli([a,b,c,c,d],X).
-  X = [a,a,b,b,c,c,c,c,d,d]
+  ## Example
+
+  iex> NinetyNineProblems.p114_duplicate('abccd')
+  'aabbccccdd'
   """
   @spec p114_duplicate(l :: list(any)) :: list(any)
   def p114_duplicate([]), do: []
@@ -181,9 +225,10 @@ defmodule NinetyNineProblems do
   @doc """
   Duplicate the elements of a list a given number of times.
 
-  Example:
-  dupli([a,b,c],3,X).
-  X = [a,a,a,b,b,b,c,c,c]
+  ## Example
+
+  iex> NinetyNineProblems.p115_duplicate_n('abc', 3)
+  'aaabbbccc'
   """
   @spec p115_duplicate_n(l :: list(any), n :: pos_integer) :: list(any)
   def p115_duplicate_n([], _), do: []
@@ -192,9 +237,10 @@ defmodule NinetyNineProblems do
   @doc """
   Drop every N'th element from a list.
 
-  Example:
-  drop([a,b,c,d,e,f,g,h,i,k],3,X).
-  X = [a,b,d,e,g,h,k]
+  ## Example
+
+  iex> NinetyNineProblems.p116_drop_every('abcdefghik', 3)
+  'abdeghk'
   """
   @spec p116_drop_every(l :: list(any), n :: non_neg_integer) :: list(any)
   def p116_drop_every(l, n), do: p116_drop_n_i(l, n, n)
@@ -209,10 +255,10 @@ defmodule NinetyNineProblems do
 
   Do not use any predefined predicates.
 
-  Example:
-  split([a,b,c,d,e,f,g,h,i,k],3,L1,L2).
-  L1 = [a,b,c]
-  L2 = [d,e,f,g,h,i,k]
+  ## Example
+
+  iex> NinetyNineProblems.p117_split_at('abcdefghik', 3)
+  {'abc', 'defghik'}
   """
   @spec p117_split_at(l :: list(any), n :: non_neg_integer) :: {list(any), list(any)}
   def p117_split_at(l, n), do: p117_split_at_acc(l, n, [], [])
@@ -228,9 +274,10 @@ defmodule NinetyNineProblems do
 
   Start counting the elements with 1.
 
-  Example:
-  slice([a,b,c,d,e,f,g,h,i,k],3,7,L).
-  L = [c,d,e,f,g]
+  ## Example
+
+  iex> NinetyNineProblems.p118_slice('abcdefghik', 3, 7)
+  'cdefg'
   """
   @spec p118_slice(l :: list(any), i :: non_neg_integer, k :: non_neg_integer) :: list(any)
   def p118_slice(l, i, k), do: p118_slice_acc(l, i, k, [])
@@ -242,15 +289,16 @@ defmodule NinetyNineProblems do
   @doc """
   Rotate a list N places to the left.
 
-  Examples:
-  rotate([a,b,c,d,e,f,g,h],3,X).
-  X = [d,e,f,g,h,a,b,c]
-
-  rotate([a,b,c,d,e,f,g,h],-2,X).
-  X = [g,h,a,b,c,d,e,f]
-
   Hint: Use the predefined predicates length/2 and append/3, as well as
   the result of problem 1.17.
+
+  ## Examples
+
+  iex> NinetyNineProblems.p119_rotate_n('abcdefgh', 3)
+  'defghabc'
+
+  iex> NinetyNineProblems.p119_rotate_n('abcdefgh', -2)
+  'ghabcdef'
   """
   @spec p119_rotate_n(l :: list(any), n :: non_neg_integer) :: list(any)
   def p119_rotate_n(l, 0), do: l
@@ -266,10 +314,10 @@ defmodule NinetyNineProblems do
   @doc """
   Remove the K'th element from a list.
 
-  Example:
-  remove_at(X,[a,b,c,d],2,R).
-  X = b
-  R = [a,c,d]
+  ## Example
+
+  iex> NinetyNineProblems.p120_remove_at('abcd', 2)
+  {?b, 'acd'}
   """
   @spec p120_remove_at(l :: list(any), k :: non_neg_integer) :: {any, list(any)}
   def p120_remove_at(l, k), do: {Enum.at(l, k - 1), List.delete_at(l, k - 1)}
@@ -277,9 +325,10 @@ defmodule NinetyNineProblems do
   @doc """
   Insert an element at a given position into a list.
 
-  Example:
-  insert_at(alfa,[a,b,c,d],2,L).
-  L = [a,alfa,b,c,d]
+  ## Example
+
+  iex> NinetyNineProblems.p121_insert_at('abcd', 2, ?x)
+  'axbcd'
   """
   @spec p121_insert_at(l :: list(any), k :: non_neg_integer, e :: any) :: list(any)
   def p121_insert_at(l, k, e), do: List.insert_at(l, k - 1, e)
@@ -287,9 +336,10 @@ defmodule NinetyNineProblems do
   @doc """
   Create a list containing all integers within a given range.
 
-  Example:
-  range(4,9,L).
-  L = [4,5,6,7,8,9]
+  ## Example
+
+  iex> NinetyNineProblems.p122_range(4,9)
+  [4,5,6,7,8,9]
   """
   @spec p122_range(from :: integer, to :: integer) :: list(integer)
   def p122_range(from, to), do: Enum.to_list(Range.new(from, to))
@@ -299,9 +349,10 @@ defmodule NinetyNineProblems do
 
   The selected items shall be put into a result list.
 
-  Example:
-  rnd_select([a,b,c,d,e,f,g,h],3,L).
-  L = [e,d,a]
+  ## Example
+
+  iex> NinetyNineProblems.p123_random_select_n('abcdefgh', 3)
+  'ehb'
   """
   @spec p123_random_select_n(l :: list(any), n :: non_neg_integer) :: list(any)
   def p123_random_select_n(l, n), do: p123_random_select_n_acc(l, n, [])
@@ -317,11 +368,12 @@ defmodule NinetyNineProblems do
 
   The selected numbers shall be put into a result list.
 
-  Example:
-  lotto(6,49,L).
-  L = [23,1,17,33,21,37]
-
   Hint: Combine the solutions of problems 1.22 and 1.23.
+
+  ## Example
+
+  iex> NinetyNineProblems.p124_lotto_n_m(6,49)
+  [49, 45, 41, 28, 43, 12]
   """
   @spec p124_lotto_n_m(n :: pos_integer, m :: pos_integer) :: list(pos_integer)
   def p124_lotto_n_m(n, m), do: p123_random_select_n(p122_range(1, m), n)
@@ -329,11 +381,12 @@ defmodule NinetyNineProblems do
   @doc """
   Generate a random permutation of the elements of a list.
 
-  Example:
-  rnd_permu([a,b,c,d,e,f],L).
-  L = [b,a,d,c,e,f]
-
   Hint: Use the solution of problem 1.23.
+
+  ## Example
+
+  iex> NinetyNineProblems.p125_random_permutation('abcdef')
+  'acedfb'
   """
   @spec p125_random_permutation(l :: list(any)) :: list(any)
   def p125_random_permutation(l), do: p123_random_select_n(l, length l)
@@ -346,12 +399,10 @@ defmodule NinetyNineProblems do
   well-known binomial coefficients). For pure mathematicians, this result may
   be great. But we want to really generate all the possibilities (via backtracking).
 
-  Example:
-  combination(3,[a,b,c,d,e,f],L).
-  L = [a,b,c] ;
-  L = [a,b,d] ;
-  L = [a,b,e] ;
-  ...
+  ## Example
+
+  iex> NinetyNineProblems.p126_combination_n('abcdef', 3)
+  ['abc', 'abd', 'abe', 'abf', 'acd', 'ace', 'acf', 'ade', 'adf', 'aef', 'bcd', 'bce', 'bcf', 'bde', 'bdf', 'bef', 'cde', 'cdf', 'cef', 'def']
   """
   @spec p126_combination_n(l :: list(any), n :: pos_integer) :: list(list(any))
   def p126_combination_n(l, n) do
@@ -386,18 +437,14 @@ defmodule NinetyNineProblems do
   of 2, 3 and 4 persons? Write a predicate that generates all the possibilities
   via backtracking.
 
-  Example:
-  group3([aldo,beat,carla,david,evi,flip,gary,hugo,ida],G1,G2,G3).
-  G1 = [aldo,beat], G2 = [carla,david,evi], G3 = [flip,gary,hugo,ida]
-  ...
+  iex> NinetyNineProblems.p127_group3(["aldo","beat","carla","david","evi","flip","gary","hugo","ida"])
+  [["aldo", "beat"], ["carla", "david", "evi"], ["flip", "gary", "hugo", "ida"]]
 
   b) Generalize the above predicate in a way that we can specify a list of
   group sizes and the predicate will return a list of groups.
 
-  Example:
-  group([aldo,beat,carla,david,evi,flip,gary,hugo,ida],[2,2,5],Gs).
-  Gs = [[aldo,beat],[carla,david],[evi,flip,gary,hugo,ida]]
-  ...
+  iex> NinetyNineProblems.p127_group(["aldo","beat","carla","david","evi","flip","gary","hugo","ida"], [2,2,5])
+  [["aldo", "beat"], ["carla", "david"], ["evi", "flip", "gary", "hugo", "ida"]]
 
   Note that we do not want permutations of the group members; i.e. [[aldo,beat],...]
   is the same solution as [[beat,aldo],...]. However, we make a difference between
@@ -410,6 +457,7 @@ defmodule NinetyNineProblems do
   def p127_group3(_) do
     [["aldo","beat"], ["carla","david","evi"], ["flip","gary","hugo","ida"]]
   end
+
   @spec p127_group(ls :: list(any), n :: non_neg_integer) :: list(list(any))
   def p127_group(_, _) do
     [["aldo","beat"], ["carla","david"], ["evi","flip","gary","hugo","ida"]]
@@ -422,18 +470,16 @@ defmodule NinetyNineProblems do
   The objective is to sort the elements of InList according to their length.
   E.g. short lists first, longer lists later, or vice versa.
 
-  Example:
-  lsort([[a,b,c],[d,e],[f,g,h],[d,e],[i,j,k,l],[m,n],[o]],L).
-  L = [[o], [d, e], [d, e], [m, n], [a, b, c], [f, g, h], [i, j, k, l]]
+  iex> NinetyNineProblems.p128_lsort(['abc', 'de', 'fgh', 'de', 'ijkl', 'mn', 'o'])
+  ['o', 'de', 'de', 'mn', 'abc', 'fgh', 'ijkl']
 
   b) Again, we suppose that a list (InList) contains elements that are lists themselves.
   But this time the objective is to sort the elements of InList according to their length
   frequency; i.e. in the default, where sorting is done ascendingly, lists with rare
   lengths are placed first, others with a more frequent length come later.
 
-  Example:
-  lfsort([[a,b,c],[d,e],[f,g,h],[d,e],[i,j,k,l],[m,n],[o]],L).
-  L = [[i, j, k, l], [o], [a, b, c], [f, g, h], [d, e], [d, e], [m, n]]
+  iex> NinetyNineProblems.p128_lfsort(['abc', 'de', 'fgh', 'de', 'ijkl', 'mn', 'o'])
+  ['o', 'ijkl', 'abc', 'fgh', 'de', 'de', 'mn']
 
   Note that in the above example, the first two lists in the result L have length 4
   and 1, both lengths appear just once. The third and forth list have length 3; there
@@ -444,6 +490,8 @@ defmodule NinetyNineProblems do
   def p128_lsort(ls) do
     Enum.sort_by(ls, fn l -> length(l) end)
   end
+
+  @spec p128_lfsort(ls :: list(list(any))) :: list(list(any))
   def p128_lfsort(ls) do
     by_length = fn l -> length(l) end
     identity = fn e -> e end
