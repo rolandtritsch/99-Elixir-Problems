@@ -1,41 +1,114 @@
 defmodule NinetyNineProblemsTest do
   use ExUnit.Case
+  use ExUnitProperties
 
   doctest NinetyNineProblems
 
   import NinetyNineProblems
 
+  property "Last element must always be last :)" do
+    check all l <- StreamData.list_of(StreamData.integer, min_length: 1) do
+      assert p101_last(l) == List.last(l)
+    end
+  end
+
   test "p101_last(list)" do
     assert p101_last([1, 2, 99]) == 99
   end
 
-  test "p102_lastBut(list)" do
+  property "But last element must always be but last :)" do
+    check all l <- StreamData.list_of(StreamData.integer, min_length: 2) do
+      assert p102_last_but(l) == Enum.at(l, length(l) - 2)
+    end
+  end
+
+  test "p102_last_but(list)" do
     assert p102_last_but([1, 2, 99, 0]) == 99
   end
 
-  test "p103_elementAt(list, k)" do
+  property "Element at k must always be at k :)" do
+    check all l <- StreamData.list_of(StreamData.integer, min_length: 1),
+              k <- StreamData.positive_integer,
+              k_ = rem(k, length(l))
+    do
+      assert p103_element_at(l, k_) == Enum.at(l, k_)
+    end
+  end
+
+  test "p103_element_at(list, k)" do
     assert p103_element_at([1, 2, 99, 0], 2) == 99
+  end
+
+  property "Length must always be length :)" do
+    check all l <- StreamData.list_of(StreamData.integer) do
+      assert p104_length(l) == length(l)
+    end
   end
 
   test "p104_length(list)" do
     assert p104_length([1, 2, 99, 0]) == 4
   end
 
+  property "Reverse a list twice is the list again" do
+    check all l <- StreamData.list_of(StreamData.integer) do
+      assert l |> p105_reverse |> p105_reverse == l
+    end
+  end
+
   test "p105_reverse(list)" do
     assert p105_reverse([1, 2, 99, 0]) == [0, 99, 2, 1]
+  end
+
+  property "Palindroms are palindroms :)" do
+    check all l <- StreamData.list_of(StreamData.integer),
+              n <- StreamData.integer,
+              p = l ++ [n] ++ Enum.reverse(l)
+    do
+      assert p106_palindrom?(p)
+    end
   end
 
   test "p106_isPalindrom(list)" do
     assert p106_palindrom?('racecar')
   end
 
+  property "Flatten must flatten :)" do
+    check all l <- StreamData.list_of(StreamData.integer),
+              l_ = Enum.map(l, &[&1])
+    do
+      assert p107_flatten(l_) == List.flatten(l_)
+    end
+  end
+
   test "p107_flatten(list)" do
     assert p107_flatten([1, [2, 2], 1, [2, 2, [3, 3, 3]]]) == [1, 2, 2, 1, 2, 2, 3, 3, 3]
+  end
+
+  property "Compress must dedup :)" do
+    check all l <- StreamData.list_of(StreamData.integer),
+              l_ = Enum.sort(l)
+    do
+      assert p108_compress(l_) == Enum.dedup(l_)
+    end
   end
 
   test "p108_compress(list)" do
     assert p108_compress([1, 2, 2, 1, 2, 2, 3, 3, 3]) == [1, 2, 1, 2, 3]
     assert p108_compress(['a','a','a','a','b','c','c','a','a','d','e','e','e','e']) == ['a','b','c','a','d','e']
+  end
+
+  property "Pack must pack :)" do
+    check all l <- StreamData.list_of(StreamData.integer, min_length: 1),
+              l_ = Enum.sort(l)
+    do
+      same = fn
+        e, [a | rest] when e == a -> {:cont, [e | [ a | rest]]}
+        e, acc -> {:cont, acc, [e]}
+      end
+      finalize = fn acc -> {:cont, acc, []} end
+      [head | tail] = l_
+      assert p109_pack(l_) == Enum.chunk_while(tail, [head], same, finalize)
+    end
   end
 
   test "p109_pack(list)" do
