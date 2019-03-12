@@ -127,7 +127,10 @@ defmodule NinetyNineProblems do
   @spec p109_pack(l :: list(any)) :: list(list(any))
   def p109_pack(l), do: p109_pack_acc(l, [])
   defp p109_pack_acc([], acc), do: acc
-  defp p109_pack_acc([e | [ee | rest]], acc) when e == ee, do: p109_pack_acc([ee | rest], [e | acc])
+
+  defp p109_pack_acc([e | [ee | rest]], acc) when e == ee,
+    do: p109_pack_acc([ee | rest], [e | acc])
+
   defp p109_pack_acc([e | rest], acc), do: [[e | acc]] ++ p109_pack_acc(rest, [])
 
   @doc """
@@ -145,7 +148,7 @@ defmodule NinetyNineProblems do
   @spec p110_encode(l :: list(any)) :: list({pos_integer, any})
   def p110_encode(l) do
     packed = p109_pack(l)
-    encode = fn [e | rest] -> {(length rest) + 1, e} end
+    encode = fn [e | rest] -> {length(rest) + 1, e} end
     Enum.map(packed, encode)
   end
 
@@ -164,12 +167,15 @@ defmodule NinetyNineProblems do
   @spec p111_encode_modified(l :: list(any)) :: list(any | list(any))
   def p111_encode_modified(l) do
     packed = p109_pack(l)
+
     encode = fn [e | rest] ->
-      if (length rest) > 0 do
-        {(length rest) + 1, e}
-      else e
+      if length(rest) > 0 do
+        {length(rest) + 1, e}
+      else
+        e
       end
     end
+
     Enum.map(packed, encode)
   end
 
@@ -206,7 +212,10 @@ defmodule NinetyNineProblems do
   @spec p113_encode_direct(l :: list(any)) :: list(any | list(any))
   def p113_encode_direct(l), do: p113_encoder(l, 1)
   defp p113_encoder([e], counter), do: [{counter, e}]
-  defp p113_encoder([e | [ee | rest]], counter) when e == ee, do: p113_encoder([ee | rest], counter + 1)
+
+  defp p113_encoder([e | [ee | rest]], counter) when e == ee,
+    do: p113_encoder([ee | rest], counter + 1)
+
   defp p113_encoder([e | [ee | rest]], 1) when e != ee, do: [e | p113_encoder([ee | rest], 1)]
   defp p113_encoder([e | [ee | rest]], counter), do: [{counter, e} | p113_encoder([ee | rest], 1)]
 
@@ -263,8 +272,12 @@ defmodule NinetyNineProblems do
   @spec p117_split_at(l :: list(any), n :: non_neg_integer) :: {list(any), list(any)}
   def p117_split_at(l, n), do: p117_split_at_acc(l, n, [], [])
   defp p117_split_at_acc([], _, first, second), do: {first, second}
-  defp p117_split_at_acc([e | rest], i, first, second) when i > 0, do: p117_split_at_acc(rest, i - 1, first ++ [e], second)
-  defp p117_split_at_acc([e | rest], i, first, second), do: p117_split_at_acc(rest, i - 1, first, second ++ [e])
+
+  defp p117_split_at_acc([e | rest], i, first, second) when i > 0,
+    do: p117_split_at_acc(rest, i - 1, first ++ [e], second)
+
+  defp p117_split_at_acc([e | rest], i, first, second),
+    do: p117_split_at_acc(rest, i - 1, first, second ++ [e])
 
   @doc """
   Extract a slice from a list.
@@ -282,8 +295,13 @@ defmodule NinetyNineProblems do
   @spec p118_slice(l :: list(any), i :: non_neg_integer, k :: non_neg_integer) :: list(any)
   def p118_slice(l, i, k), do: p118_slice_acc(l, i, k, [])
   defp p118_slice_acc([], _, _, slice), do: slice
-  defp p118_slice_acc([_ | rest], i, k, slice) when i > 1, do: p118_slice_acc(rest, i - 1, k - 1, slice)
-  defp p118_slice_acc([e | rest], i, k, slice) when i <= 1 and k > 0, do: p118_slice_acc(rest, i - 1, k - 1, slice ++ [e])
+
+  defp p118_slice_acc([_ | rest], i, k, slice) when i > 1,
+    do: p118_slice_acc(rest, i - 1, k - 1, slice)
+
+  defp p118_slice_acc([e | rest], i, k, slice) when i <= 1 and k > 0,
+    do: p118_slice_acc(rest, i - 1, k - 1, slice ++ [e])
+
   defp p118_slice_acc(_, i, k, slice) when i <= 1 and k <= 0, do: slice
 
   @doc """
@@ -302,12 +320,14 @@ defmodule NinetyNineProblems do
   """
   @spec p119_rotate_n(l :: list(any), n :: non_neg_integer) :: list(any)
   def p119_rotate_n(l, 0), do: l
+
   def p119_rotate_n(l, n) when n > 0 do
     {first, second} = p117_split_at(l, n)
     second ++ first
   end
+
   def p119_rotate_n(l, n) do
-    {first, second} = p117_split_at(l, n + (length l))
+    {first, second} = p117_split_at(l, n + length(l))
     second ++ first
   end
 
@@ -358,8 +378,9 @@ defmodule NinetyNineProblems do
   def p123_random_select_n(l, n), do: p123_random_select_n_acc(l, n, [])
   defp p123_random_select_n_acc([], _, acc), do: acc
   defp p123_random_select_n_acc(_, 0, acc), do: acc
+
   defp p123_random_select_n_acc(l, n, acc) do
-    i = Random.randint(0, (length l) - 1)
+    i = Random.randint(0, length(l) - 1)
     p123_random_select_n_acc(List.delete_at(l, i), n - 1, [Enum.at(l, i) | acc])
   end
 
@@ -389,7 +410,7 @@ defmodule NinetyNineProblems do
   'acedfb'
   """
   @spec p125_random_permutation(l :: list(any)) :: list(any)
-  def p125_random_permutation(l), do: p123_random_select_n(l, length l)
+  def p125_random_permutation(l), do: p123_random_select_n(l, length(l))
 
   @doc """
   Generate the combinations of K distinct objects chosen from the N elements of a list.
@@ -409,10 +430,10 @@ defmodule NinetyNineProblems do
     # TODO: curry this on the fly or find a way to implement it with a macro.
     p126_f = fn n ->
       case n do
-        1 -> fn(x1) -> [x1] end
-        2 -> fn(x1,x2) -> [x1,x2] end
-        3 -> fn(x1,x2,x3) -> [x1,x2,x3] end
-        4 -> fn(x1,x2,x3,x4) -> [x1,x2,x3,x4] end
+        1 -> fn x1 -> [x1] end
+        2 -> fn x1, x2 -> [x1, x2] end
+        3 -> fn x1, x2, x3 -> [x1, x2, x3] end
+        4 -> fn x1, x2, x3, x4 -> [x1, x2, x3, x4] end
         _ -> raise "Number of dimensions out of range"
       end
     end
@@ -424,11 +445,13 @@ defmodule NinetyNineProblems do
     product = Enum.map(cartesian, sort_lists)
     Enum.uniq(Enum.filter(product, is_uniq))
   end
+
   defp p126_cartesian([], _), do: []
   defp p126_cartesian(lists, f), do: p126_cartesian(Enum.reverse(lists), [], f) |> Enum.to_list()
   defp p126_cartesian([], elems, f), do: [apply(f, elems)]
-  defp p126_cartesian([h | tail], elems, f), do: Enum.flat_map(h, fn x -> p126_cartesian(tail, [x | elems], f) end)
 
+  defp p126_cartesian([h | tail], elems, f),
+    do: Enum.flat_map(h, fn x -> p126_cartesian(tail, [x | elems], f) end)
 
   @doc """
   Group the elements of a set into disjoint subsets.
@@ -455,12 +478,12 @@ defmodule NinetyNineProblems do
   """
   @spec p127_group3(ls :: list(any)) :: list(list(any))
   def p127_group3(_) do
-    [["aldo","beat"], ["carla","david","evi"], ["flip","gary","hugo","ida"]]
+    [["aldo", "beat"], ["carla", "david", "evi"], ["flip", "gary", "hugo", "ida"]]
   end
 
   @spec p127_group(ls :: list(any), n :: non_neg_integer) :: list(list(any))
   def p127_group(_, _) do
-    [["aldo","beat"], ["carla","david"], ["evi","flip","gary","hugo","ida"]]
+    [["aldo", "beat"], ["carla", "david"], ["evi", "flip", "gary", "hugo", "ida"]]
   end
 
   @doc """
@@ -498,9 +521,9 @@ defmodule NinetyNineProblems do
 
     Enum.map(ls, identity)
     |> Enum.group_by(by_length)
-    |> Map.values
+    |> Map.values()
     |> Enum.group_by(by_length)
-    |> Map.values
+    |> Map.values()
     |> Enum.flat_map(identity)
     |> Enum.flat_map(identity)
   end
