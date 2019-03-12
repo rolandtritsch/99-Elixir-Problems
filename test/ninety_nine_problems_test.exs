@@ -1,5 +1,5 @@
 defmodule NinetyNineProblemsTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   use ExUnitProperties
 
   doctest NinetyNineProblems
@@ -142,6 +142,12 @@ defmodule NinetyNineProblemsTest do
              ?d,
              {4, ?e}
            ]
+  end
+
+  property "Decode an encoding must give the original string :)" do
+    check all l <- StreamData.string(?a..?z, min_length: 1) do
+      assert to_charlist(l) |> p111_encode_modified |> p112_decode == to_charlist(l)
+    end
   end
 
   test "p112_decode(list)" do
