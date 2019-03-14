@@ -26,6 +26,7 @@ defmodule NinetyNineProblems.MixProject do
       {:earmark, "~> 1.2", only: :dev},
       {:ex_doc, "~> 0.19", only: :dev},
       {:excheck, "~> 0.6", only: :test},
+      {:triq, "~> 1.2", only: [:dev, :test]},
     ]
   end
 end
