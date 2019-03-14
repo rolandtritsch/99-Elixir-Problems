@@ -25,7 +25,7 @@ defmodule NinetyNineProblems.MixProject do
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
       {:earmark, "~> 1.2", only: :dev},
       {:ex_doc, "~> 0.19", only: :dev},
-      {:stream_data, "~> 0.1", only: :test}
+      {:excheck, "~> 0.6", only: :test},
     ]
   end
 end
